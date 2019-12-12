@@ -14,18 +14,16 @@ import java.util.HashMap;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
- * @author Rupin Mittal
  */
-public class RobotMap
-{
-	private static HashMap <String, Integer> mapPWM; //the PWM port map
+public class RobotMap {
+    private static HashMap <String, Integer> mapPWM; //the PWM port map
 	private static HashMap <String, Integer> mapCAN; //the CAN port map
 	private static HashMap <String, Integer> mapDIO; //the DIO port map
 	private static HashMap <String, Integer> mapCTRL; //the controller port map
 	private static HashMap <String, Integer> mapSys; // the subsystems mode map
 
-  public RobotMap ()
-  {
+   public RobotMap ()
+   {
 	// make the 5 different maps
     mapPWM = new HashMap<>();
 	mapCAN = new HashMap<>();
@@ -33,39 +31,13 @@ public class RobotMap
     mapCTRL = new HashMap<>();
     mapSys = new HashMap<>();
 
-	// loading map values for drive
-	// first character = left or right
-	// second character = front, middle, or back
-	setCAN("drive_lf", 10);
-	setCAN("drive_lm", 21);
-	setCAN("drive_lb", 23);
-	setCAN("drive_rf", 11);
-	setCAN("drive_rm", 20);
-	setCAN("drive_rb", 22);
+	  // shooter wheel map
+	  setCAN("wheel", 3);
 
-	// intake/grabber wheel map
-	setCAN("wheel_left", 3);
-	setCAN("wheel_right", 1);
-
-	// main subsystem srx motor ports
-	setCAN("tilt", 1);
-	setCAN("elevator", 2);
-	
-	// victor spx
-	setCAN("climb", 2);
-
-	// limit switches
-	setDIO("intake_switch", 0);
-	setDIO("climb_switch", 1);
-
-	// whether a subsystem is installed and in use
-	// 0 = disabled, 1 = enabled, 2 = enabled and debugging (print sensor vals, etc)
-	setSys("tilt", 2);
-	setSys("drive", 1);
-	setSys("wheelio", 1);
-	setSys("elevator", 1);
-	setSys("climb", 0);
-  }
+	  // whether a subsystem is installed and in use
+	  // 0 = disabled, 1 = enabled, 2 = enabled and debugging (print sensor vals, etc)
+	  setSys("shooter", 1);
+   }
 
 
   /**
@@ -159,3 +131,4 @@ public class RobotMap
 		return mapSys.get(name);
 	}
 }
+

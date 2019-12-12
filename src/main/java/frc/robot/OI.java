@@ -7,67 +7,32 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.POVButton;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import frc.robot.commands.*;
+import frc.robot.commands.ActivateShoot;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI
-{
-  // controller used for main controls (xbox controller)
+public class OI {
   private XboxController ctrl;
-  private JoystickButton[] buttons;
-  private POVButton[] dpad;
+  private JoystickButton button;
 
-  // how many buttons in the controller
-  private final int BUTTON_RANGE = 10;
-  /**
-   * constructor OI connects the controller and buttons to the different commands
-   */
   public OI ()
   {
     ctrl = new XboxController(0);
+    button = new JoystickButton(ctrl, 6); //6 represents right bumper
 
-    // indexes start at 1 for buttons
-    buttons = new JoystickButton[BUTTON_RANGE+1];
-    dpad = new POVButton[4];
-    for (int i = 1; i <= BUTTON_RANGE; i ++)
-      buttons[i] = new JoystickButton(ctrl, i);
-    for (int i = 0; i < 4; i ++)
-      dpad[i] = new POVButton(ctrl, i * 90);
-    
-    /**
-     * BUTTON MAP KEY:
-     * 1 = A
-     * 2 = B
-     * 3 = X
-     * 4 = Y
-     * 5 = left bumper
-     * 6 = right bumper
-     * 7 = select
-     * 8 = menu
-     * 9 = left stick click
-     * 10 = right stick click
-     */
-    
-    if(Robot.getMap().getSys("wheelio") != 0)
+    if(Robot.getMap().getSys("shooter") != 0)
     {
-      // right bumper - init the timer start, and shoot
-      buttons[6].whenPressed(new StartUnload());
-      buttons[6].whenReleased(new Unload());
-      
       // left bumper - toggle the intake
-      buttons[5].toggleWhenPressed(new Intake());
+      button.toggleWhenPressed(new ActivateShoot());
     }
+  }
 
-  
-
-
-
+  public JoystickButton getOpJoystickButton()
+  {
+    return button;
+  }
 }

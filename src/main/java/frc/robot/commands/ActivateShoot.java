@@ -10,30 +10,39 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ClimbStick extends Command {
-  public ClimbStick() {
-    requires(Robot.getClimb());
+public class ActivateShoot extends Command {
+  public ActivateShoot() {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+  }
+
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double input = Robot.getOI().getClimbY();
-    // if enabled
-    // if (Robot.getClimb().getEnabled() || 1 == 1)
-    // {
-    //   if (Robot.getClimb().atEnd() && input > 0)
-    //     Robot.getClimb().rawMove(0);
-    //   else
-    //     Robot.getClimb().rawMove(input);
-    // }
-    
-    Robot.getClimb().rawMove(input);
+    Robot.shooter.Shoot();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+    Robot.shooter.Stop();
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
+    end();
   }
 }

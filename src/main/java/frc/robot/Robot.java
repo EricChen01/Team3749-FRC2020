@@ -7,13 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.BallShooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,14 +18,10 @@ import frc.robot.subsystems.*;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot
-{
-  // Subsystems
-
+public class Robot extends TimedRobot {
+  public static OI m_oi;
+  public static BallShooter shooter;
   
-  // operator interface
-  private static OI oi;
-  // map of ports and other info
   private static RobotMap map;
 
   /**
@@ -37,18 +29,35 @@ public class Robot extends TimedRobot
    * used for any initialization code.
    */
   @Override
-  public void robotInit()
-  {
+  public void robotInit() {
+    m_oi = new OI();
     map = new RobotMap();
-
-    // starts and sets up the camera with display settings
-    initCamera();
-
-    if (map.getSys("drive") != 0)
-      drive = new DriveBase();
+    shooter = new BallShooter();
   }
 
+  /**
+   *
+   * a simple getter method for the operator interface (for controls)
+   * @return drive base
+   */
+  public static OI getOI()
+  {
+    return m_oi;
+  }
+  /**
+   *
+   * a simple getter method for the robot map
+   * @return drive base
+   */
+  public static RobotMap getMap()
+  {
+    return map;
+  }
 
+  public static BallShooter getFlywheel()
+   {
+      return shooter;
+   }
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -59,21 +68,20 @@ public class Robot extends TimedRobot
    * LiveWindow and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic()
-  {
+  public void robotPeriodic() {
   }
+
   /**
    * This function is called once each time the robot enters Disabled mode.
    * You can use it to reset any subsystem information you want to clear when
    * the robot is disabled.
    */
   @Override
-  public void disabledInit()
-  {
+  public void disabledInit() {
   }
+
   @Override
-  public void disabledPeriodic()
-  {
+  public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
 
@@ -89,21 +97,20 @@ public class Robot extends TimedRobot
    * to the switch structure below with additional strings & commands.
    */
   @Override
-  public void autonomousInit()
-  {
+  public void autonomousInit() {
     
   }
+
   /**
    * This function is called periodically during autonomous.
    */
   @Override
-  public void autonomousPeriodic()
-  {
+  public void autonomousPeriodic() {
     Scheduler.getInstance().run();
   }
+
   @Override
-  public void teleopInit()
-  {
+  public void teleopInit() {
     
   }
 
@@ -111,15 +118,14 @@ public class Robot extends TimedRobot
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic()
-  {
+  public void teleopPeriodic() {
     Scheduler.getInstance().run();
   }
+
   /**
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic()
-  {
+  public void testPeriodic() {
   }
 }
