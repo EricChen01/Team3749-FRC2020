@@ -1,4 +1,4 @@
-# 🤖 Team Optix 3749 2020 FRC Repo
+# 🤖 Team Optix 3749 - 2020 FRC Repo
 
 
 
